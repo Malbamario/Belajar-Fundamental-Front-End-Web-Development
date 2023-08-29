@@ -30,3 +30,17 @@ Hoisting juga dapat mengakibatkan variabel dapat diinisialisasi sebelum dideklar
 ### Inisialisasi dan ubah
 
 Perbedaan dari keduanya adalah ketika terdapat sebuah variabel constant berupa array ataupun object. Variabel tersebut sudah pasti tidak dapat di-inisialisasi kembali tetapi tetap dapat diubah elemennya atau property-nya.
+
+## Template Literals
+
+Dengan bantuan template literals, programmer dapat menyelipkan variabel di dalamnya dan dapat membaca whitespace dan linespace tanpa escape character seperti berikut.
+
+```js
+const name = 'Mario Alfredo Bawu';
+const age = 20
+let test = `Perkenalkan nama saya ${name}. Umur saya ${age} tahun.
+Saya lahir di Mataram, 29 Juli 2003.
+Kemudian sekarang saya tinggal di Ampenan, Mataram, Nusa Tenggara Barat.
+`;
+```
+
