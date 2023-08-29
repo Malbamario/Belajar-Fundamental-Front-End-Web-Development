@@ -2,9 +2,9 @@
 
 ## Deklarasi Variabel
 
-### Hoisting
+### _Hoisting_
 
-_Hoisting_ merupakan kondisi dimana ketika variabel dideklarasikan dengan keyword `var` sehingga variabel padatingkat atas sebuah fungsi
+_Hoisting_ merupakan kondisi dimana ketika variabel dideklarasikan dengan _keyword_ `var` sehingga variabel pada tingkat atas sebuah fungsi.
 
 ```js
 function makeTea(isCold) {
@@ -21,19 +21,19 @@ console.log(makeTea(false));
 /* Output: Make a Hot Tea! */
 ```
 
-Hoisting juga dapat mengakibatkan variabel dapat diinisialisasi sebelum dideklarasikan
+_Hoisting_ juga dapat mengakibatkan variabel dapat diinisialisasi sebelum dideklarasikan.
 
-### let & const
+### `let` & `const`
 
-`let` & `const` merupakan keyword yang dapat mencegah terjadinya hoisting sehingga dapat meminimalisir terjadinya bug dalam penggunaan variabel.
+`let` & `const` merupakan _keyword_ yang dapat mencegah terjadinya _hoisting_ sehingga dapat meminimalisir terjadinya _bug_ dalam penggunaan variabel.
 
 ### Inisialisasi dan ubah
 
-Perbedaan dari keduanya adalah ketika terdapat sebuah variabel constant berupa array ataupun object. Variabel tersebut sudah pasti tidak dapat di-inisialisasi kembali tetapi tetap dapat diubah elemennya atau property-nya.
+Perbedaan dari keduanya adalah ketika terdapat sebuah variabel _constant_ berupa _array_ ataupun _object_. Variabel tersebut sudah pasti tidak dapat di-inisialisasi kembali tetapi tetap dapat diubah elemennya atau _property_-nya.
 
-## Template Literals
+## _Template Literals_
 
-Dengan bantuan template literals, programmer dapat menyelipkan variabel di dalamnya dan dapat membaca whitespace dan linespace tanpa escape character seperti berikut.
+Dengan bantuan _template literals_, _programmer_ dapat menyelipkan variabel di dalamnya dan dapat membaca _whitespace_ dan _linespace_ tanpa _escape character_ seperti berikut.
 
 ```js
 const name = 'Mario Alfredo Bawu';
@@ -44,3 +44,33 @@ Kemudian sekarang saya tinggal di Ampenan, Mataram, Nusa Tenggara Barat.
 `;
 ```
 
+## _Destructuring Object_ dan _Array_
+
+Destructing Object dapat dilakukan dengan bantuan `{ }`. Mulai dari _destructing assignment_, _default value_, dan _different variabel name_. Berikut contoh pengimplementasiannya.
+
+```js
+const myself = {
+    name: 'Mario',
+    age: '19',
+    born: 'Mataram, 29 July 2003'
+};
+
+const {name, age, born} = myself;
+let name2, age2, born2;
+
+// destructing assignment & different variabel name
+({name: name2, age: age2, born: born2} = myself);
+// default value & different variabel name
+const {name: name3, age: age3, born: born3, address='Ampenan'} = myself;
+```
+
+Destructing Array pada dasarnya sama, hanya berbeda dipenggunaan tanda kurung yang menjadi kurung siku `[ ]` dan dikarenakan array disimpan secara berurutan maka destructing array akan wajib memperhatikan urutannya, bukan nama dari variabel yang akan menyimpannya. Berikut contoh pengimplementasiannya.
+
+```js
+const malbaBakery = ['Strawberry Doughnut', 'Chocolate Doughnut', 'Croissant', 'Srikaya Bread'];
+let [myOrder] = malbaBakery;
+let [, sisterOrder,daddyOrder, mommyOrder, fianceOrder='Crocodile Bread'] = malbaBakery;
+
+// swapping
+[myOrder, fianceOrder] = [fianceOrder, myOrder];
+```
