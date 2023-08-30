@@ -2,6 +2,32 @@
 
 Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembelajaran saya pada kelas [Belajar Fundamental Front-End Web Development](https://www.dicoding.com/academies/163).
 
+## Daftar Isi
+
+- [Notes](#notes)
+  - [Daftar Isi](#daftar-isi)
+  - [ECMAScript 6](#ecmascript-6)
+    - [Deklarasi Variabel](#deklarasi-variabel)
+      - [_Hoisting_](#hoisting)
+      - [`let` \& `const`](#let--const)
+      - [Inisialisasi dan ubah](#inisialisasi-dan-ubah)
+    - [_Template Literals_](#template-literals)
+    - [_Destructuring Object_ dan _Array_](#destructuring-object-dan-array)
+    - [_Spreading Operator_ dan _Rest Parameter_ (`...`)](#spreading-operator-dan-rest-parameter-)
+    - [_Arrow Function_](#arrow-function)
+    - [_Class_](#class)
+      - [_Constructor_, _Instance_, _Property Accessor_](#constructor-instance-property-accessor)
+      - [_Inheritance_](#inheritance)
+      - [_Static Method_](#static-method)
+    - [_Asynchronous_](#asynchronous)
+      - [`setTimeOut`](#settimeout)
+      - [_Callback Function_](#callback-function)
+      - [_Promise_](#promise)
+      - [`async` \& `await`](#async--await)
+    - [Module](#module)
+      - [Ekspor \& Impor](#ekspor--impor)
+  - [_Web Component_](#web-component)
+
 ## ECMAScript 6
 
 ### Deklarasi Variabel
