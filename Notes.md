@@ -84,3 +84,52 @@ _Spread operator_ adalah operator yang digunakan untuk menyebarkan elemen dari s
 _Arrow Function_ merupakan salah satu cara penulisan fungsi dalam bentuk ekspresi menggunakan panah (=>). Fungsi ini dapat tersimpan dalam sebuah variabel maupun properti objek dan langsung diimplementasikan sebagai argumen sebuah fungsi. Penulisannya cukup menuliskan paramter dan _body_-nya, jika tanpa parameter cukup dengan tanda kurung `()` atau `(_)` jika hanya ada satu maka tidak perlu tanda kurung, begitu juga dengan _body_-nya, jika hanya satu _statement_ maka tidak perlu tanda `{}`
 
 Pada _regular function_ jika ingin membentuk objek maka ketika dipanggil wajib menyertakan _keyword_ `new`, sehingga objek `this` pada fungsi tersebut dapat mengacu pada objek fungsi tersebut, sedangkan dengn _arrow function_ tidak perlu menggunakannya dan object `this` akan langsung mengacu pada dimana fungsi tersebut dipanggil.
+
+## _Class_
+
+_Class_ pada JS sebelum ES6 menggunakan teknik _prototype_. Dengan begitu maka method dari masing-masing tidak berkali-kali dibuat oleh masing-masing _instance_ nantinya sehingga cukup diwariskan (_inheritance_) ke setiap _instance_ melalui _prototype_ alias `__proto__`. Setelah update ES6 penulisan _class_ berubah menjadi seperti bahasa yang lainnya.
+
+### Constructor, Instance, Property Accessor
+
+```js
+class Book{
+    constructor(title, author, publishDate){
+        this.title = title;
+        this.author = author;
+        this._publishDate = publishDate;
+    }
+
+    get publishDate(){
+        return this._publishDate;
+    }
+
+    set publishDate(pubDate){
+        this._publishDate = pubDate;
+    }
+}
+
+const myBook = new Book('Si Kancil dan Si Buaya', 'Purbaloka', '22 Desember 2002');
+const myFianceBook = new Book('Ladin 1977', 'Batu Kampuang', '29 Februari 2039');
+```
+
+### Inheritance
+
+```JS
+class ParentClass{
+    constructor(prop1, prop2){
+        this.prop1 = prop1;
+        this.prop2 = prop2;
+    }
+}
+class ChildClass extends ParentClass {
+    constructor(prop1, prop2, prop3){
+        super(prop1, prop2);
+        this.prop3 = prop3;
+    }
+}
+```
+
+## Static Method
+
+_Static Method_ merupakan _method_ yang dapat dipanggil tanpa harus melakukan instansiasi terlebih dahulu.
+
