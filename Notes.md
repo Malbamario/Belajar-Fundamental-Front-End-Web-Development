@@ -201,3 +201,9 @@ Promise.all(myPromises).then( mess => console.log(mess));
 ### `async` & `await`
 
 Kedua keyword tersebut digunakan agar promise dapat dijalankan pada sebuah fungsi agar fungsi tersebut berjalan secara async. Untuk menangani `onRejected` dapat menggunakan `try-catch`.
+
+## Module
+
+### Ekspor & Impor
+
+Terdapat beberapa versi dalam melakukannya seperti pada Node.js untuk _export_ dapat menggunakan keyword `module.exports` yang berupa objek untuk menampung berbagai variabel dan untuk _import_ dapat menggunakan fungsi `require('./file.js')` yang kemudian dapat ditampung ke dalam sebuah variabel. Karena yang dikirim berupa objek maka dapat memanfaatkan _object literals_ dan _destructing object_. Sedangkan pada ES6 atribut `type` dari _tag script_ tersebut perlu diisi dengan `module`. Kemudian untuk _export_ satu variabel dapat menggunakan _keyword_ `export default ...` dan untuk _import_ satu variabel dapat menggunakan _keyword_ `import varName from './file.js'`. Sedangkan jika lebih bari satu variabel dapat menggunakan  _object literals_ dan _destructing object_ namun jika ingin mengubah nama variabel ketika di-_import_ dapat menggunakan _keyword_ `as`.
