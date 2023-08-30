@@ -1,8 +1,12 @@
-# ECMAScript 6
+# Notes
 
-## Deklarasi Variabel
+Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembelajaran saya pada kelas [Belajar Fundamental Front-End Web Development](https://www.dicoding.com/academies/163).
 
-### _Hoisting_
+## ECMAScript 6
+
+### Deklarasi Variabel
+
+#### _Hoisting_
 
 _Hoisting_ merupakan kondisi dimana ketika variabel dideklarasikan dengan _keyword_ `var` sehingga variabel pada tingkat atas sebuah fungsi.
 
@@ -23,15 +27,15 @@ console.log(makeTea(false));
 
 _Hoisting_ juga dapat mengakibatkan variabel dapat diinisialisasi sebelum dideklarasikan.
 
-### `let` & `const`
+#### `let` & `const`
 
 `let` & `const` merupakan _keyword_ yang dapat mencegah terjadinya _hoisting_ sehingga dapat meminimalisir terjadinya _bug_ dalam penggunaan variabel.
 
-### Inisialisasi dan ubah
+#### Inisialisasi dan ubah
 
 Perbedaan dari keduanya adalah ketika terdapat sebuah variabel _constant_ berupa _array_ ataupun _object_. Variabel tersebut sudah pasti tidak dapat di-inisialisasi kembali tetapi tetap dapat diubah elemennya atau _property_-nya.
 
-## _Template Literals_
+### _Template Literals_
 
 Dengan bantuan _template literals_, _programmer_ dapat menyelipkan variabel di dalamnya dan dapat membaca _whitespace_ dan _linespace_ tanpa _escape character_ seperti berikut.
 
@@ -44,7 +48,7 @@ Kemudian sekarang saya tinggal di Ampenan, Mataram, Nusa Tenggara Barat.
 `;
 ```
 
-## _Destructuring Object_ dan _Array_
+### _Destructuring Object_ dan _Array_
 
 Destructing Object dapat dilakukan dengan bantuan `{ }`. Mulai dari _destructing assignment_, _default value_, dan _different variabel name_. Berikut contoh pengimplementasiannya.
 
@@ -75,21 +79,21 @@ let [, sisterOrder,daddyOrder, mommyOrder, fianceOrder='Crocodile Bread'] = malb
 [myOrder, fianceOrder] = [fianceOrder, myOrder];
 ```
 
-## _Spreading Operator_ dan _Rest Parameter_ (`...`)
+### _Spreading Operator_ dan _Rest Parameter_ (`...`)
 
 _Spread operator_ adalah operator yang digunakan untuk menyebarkan elemen dari sebuah _iterable object_ seperti _array_ dan cocok digunakan dalam memberikan argumen pada _variadic functions_ seperti `console.log()` ataupun `Math.max()`. Sedangkan _rest parameter_ adalah ketika ingin membuat sebuar _variadic function_ maka operator tersebut dapat digunakan untuk membentuk sebuah parameter berupa _iterable object_ untuk menampung argumen yang jumlahnya tak tentu atau hasil dri _spread operator_.
 
-## _Arrow Function_
+### _Arrow Function_
 
 _Arrow Function_ merupakan salah satu cara penulisan fungsi dalam bentuk ekspresi menggunakan panah (=>). Fungsi ini dapat tersimpan dalam sebuah variabel maupun properti objek dan langsung diimplementasikan sebagai argumen sebuah fungsi. Penulisannya cukup menuliskan paramter dan _body_-nya, jika tanpa parameter cukup dengan tanda kurung `()` atau `(_)` jika hanya ada satu maka tidak perlu tanda kurung, begitu juga dengan _body_-nya, jika hanya satu _statement_ maka tidak perlu tanda `{}`
 
 Pada _regular function_ jika ingin membentuk objek maka ketika dipanggil wajib menyertakan _keyword_ `new`, sehingga objek `this` pada fungsi tersebut dapat mengacu pada objek fungsi tersebut, sedangkan dengn _arrow function_ tidak perlu menggunakannya dan object `this` akan langsung mengacu pada dimana fungsi tersebut dipanggil.
 
-## _Class_
+### _Class_
 
 _Class_ pada JS sebelum ES6 menggunakan teknik _prototype_. Dengan begitu maka method dari masing-masing tidak berkali-kali dibuat oleh masing-masing _instance_ nantinya sehingga cukup diwariskan (_inheritance_) ke setiap _instance_ melalui _prototype_ alias `__proto__`. Setelah update ES6 penulisan _class_ berubah menjadi seperti bahasa yang lainnya.
 
-### _Constructor_, _Instance_, _Property Accessor_
+#### _Constructor_, _Instance_, _Property Accessor_
 
 ```js
 class Book{
@@ -112,7 +116,7 @@ const myBook = new Book('Si Kancil dan Si Buaya', 'Purbaloka', '22 Desember 2002
 const myFianceBook = new Book('Ladin 1977', 'Batu Kampuang', '29 Februari 2039');
 ```
 
-### _Inheritance_
+#### _Inheritance_
 
 ```JS
 class ParentClass{
@@ -129,21 +133,21 @@ class ChildClass extends ParentClass {
 }
 ```
 
-### _Static Method_
+#### _Static Method_
 
 _Static Method_ merupakan _method_ yang dapat dipanggil tanpa harus melakukan instansiasi terlebih dahulu.
 
-## _Asynchronous_
+### _Asynchronous_
 
-### `setTimeOut`
+#### `setTimeOut`
 
 Fungsi untuk memberikan waktu jeda sebelum dieksekusi oleh program sehingga berjalan secara _asynchronous_.
 
-### _Callback Function_
+#### _Callback Function_
 
 Callback function merupakan fungsi yang menjadi argumen dan digunakan pada fungsi lainnya.
 
-### _Promise_
+#### _Promise_
 
 _Promise_ dapat menghindari terjdinya _callback hell_ alias penggunaan _callback_ yang beruntun. Sebuah object _promise_ memerlukan fungsi _resolver_ atau _executor_ ketika instansiasi. Di dalamnya terdapat 2 fungsi yaitu `resolve()` untuk mengirimkan data ketika _promise_ berhasil alias statusnya berubah menjadi _fulfilled_ sedangkan `reject()` untuk memberitahu ketika _promise_ tidak dapat dijalankan alias statusnya berubah menjadi _rejected_. Untuk menangani status tersebut digunakan _method_ `.then()` setelah _promise_ dipanggil. Argumen yang diberikan pada _method_ tersebut berupa fungsi _handler_ `onFulfilled` ataupun `onRejected`. Berikut contohnya.
 
@@ -198,12 +202,14 @@ Promise.all(myPromises).then( mess => console.log(mess));
 */
 ```
 
-### `async` & `await`
+#### `async` & `await`
 
 Kedua keyword tersebut digunakan agar promise dapat dijalankan pada sebuah fungsi agar fungsi tersebut berjalan secara async. Untuk menangani `onRejected` dapat menggunakan `try-catch`.
 
-## Module
+### Module
 
-### Ekspor & Impor
+#### Ekspor & Impor
 
 Terdapat beberapa versi dalam melakukannya seperti pada Node.js untuk _export_ dapat menggunakan keyword `module.exports` yang berupa objek untuk menampung berbagai variabel dan untuk _import_ dapat menggunakan fungsi `require('./file.js')` yang kemudian dapat ditampung ke dalam sebuah variabel. Karena yang dikirim berupa objek maka dapat memanfaatkan _object literals_ dan _destructing object_. Sedangkan pada ES6 atribut `type` dari _tag script_ tersebut perlu diisi dengan `module`. Kemudian untuk _export_ satu variabel dapat menggunakan _keyword_ `export default ...` dan untuk _import_ satu variabel dapat menggunakan _keyword_ `import varName from './file.js'`. Sedangkan jika lebih bari satu variabel dapat menggunakan  _object literals_ dan _destructing object_ namun jika ingin mengubah nama variabel ketika di-_import_ dapat menggunakan _keyword_ `as`.
+
+## _Web Component_
