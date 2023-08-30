@@ -74,3 +74,13 @@ let [, sisterOrder,daddyOrder, mommyOrder, fianceOrder='Crocodile Bread'] = malb
 // swapping
 [myOrder, fianceOrder] = [fianceOrder, myOrder];
 ```
+
+## _Spreading Operator_ dan _Rest Parameter_ (`...`)
+
+_Spread operator_ adalah operator yang digunakan untuk menyebarkan elemen dari sebuah _iterable object_ seperti _array_ dan cocok digunakan dalam memberikan argumen pada _variadic functions_ seperti `console.log()` ataupun `Math.max()`. Sedangkan _rest parameter_ adalah ketika ingin membuat sebuar _variadic function_ maka operator tersebut dapat digunakan untuk membentuk sebuah parameter berupa _iterable object_ untuk menampung argumen yang jumlahnya tak tentu atau hasil dri _spread operator_.
+
+## _Arrow Function_
+
+_Arrow Function_ merupakan salah satu cara penulisan fungsi dalam bentuk ekspresi menggunakan panah (=>). Fungsi ini dapat tersimpan dalam sebuah variabel maupun properti objek dan langsung diimplementasikan sebagai argumen sebuah fungsi. Penulisannya cukup menuliskan paramter dan _body_-nya, jika tanpa parameter cukup dengan tanda kurung `()` atau `(_)` jika hanya ada satu maka tidak perlu tanda kurung, begitu juga dengan _body_-nya, jika hanya satu _statement_ maka tidak perlu tanda `{}`
+
+Pada _regular function_ jika ingin membentuk objek maka ketika dipanggil wajib menyertakan _keyword_ `new`, sehingga objek `this` pada fungsi tersebut dapat mengacu pada objek fungsi tersebut, sedangkan dengn _arrow function_ tidak perlu menggunakannya dan object `this` akan langsung mengacu pada dimana fungsi tersebut dipanggil.

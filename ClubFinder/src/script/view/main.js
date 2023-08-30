@@ -1,17 +1,17 @@
-const main = function () {
+const main = () => {
   const searchElement = document.querySelector('#searchElement');
   const buttonSearchElement = document.querySelector('#searchButtonElement');
   const clubListElement = document.querySelector('#clubList');
 
-  const onButtonSearchClicked = function () {
+  const onButtonSearchClicked = () => {
     const dataSource = new DataSource(renderResult, fallbackResult);
     dataSource.searchClub(searchElement.value);
   };
 
-  const renderResult = function (results) {
+  const renderResult = results => {
     clubListElement.innerHTML = '';
-    results.forEach(function (club) {
-      let {name, fanArt, description}= club;
+    results.forEach(club => {
+      let {name, fanArt, description} = club;
 
       const clubElement = document.createElement('div');
       clubElement.setAttribute('class', 'club');
@@ -25,7 +25,7 @@ const main = function () {
     });
   };
 
-  const fallbackResult = function (message) {
+  const fallbackResult = message => {
     clubListElement.innerHTML = `<h2 class="placeholder">${message}</h2>`;
   };
 
