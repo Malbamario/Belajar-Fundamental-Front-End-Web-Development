@@ -1,11 +1,14 @@
-const main = () => {
+const main = async () => {
   const searchElement = document.querySelector('#searchElement');
   const buttonSearchElement = document.querySelector('#searchButtonElement');
   const clubListElement = document.querySelector('#clubList');
 
-  const onButtonSearchClicked = () => {
-    const dataSource = new DataSource(renderResult, fallbackResult);
-    dataSource.searchClub(searchElement.value);
+  const onButtonSearchClicked = async () => {
+    try{
+      renderResult(await DataSource.searchClub(searchElement.value));
+    } catch(rejectedMess){
+      fallbackResult(rejectedMess);
+    }
   };
 
   const renderResult = results => {
@@ -30,7 +33,10 @@ const main = () => {
   };
 
   // Tambahan dari saya agar ketika pertama kali di-load semua club muncul terlebih dahulu
-  const dataSource = new DataSource(renderResult, fallbackResult);
-  dataSource.searchClub(searchElement.value);
+  try{
+    renderResult(await DataSource.searchClub(searchElement.value));
+  } catch(rejectedMess){
+    fallbackResult(rejectedMess);
+  }
   buttonSearchElement.addEventListener('click', onButtonSearchClicked);
 };

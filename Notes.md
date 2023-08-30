@@ -89,7 +89,7 @@ Pada _regular function_ jika ingin membentuk objek maka ketika dipanggil wajib m
 
 _Class_ pada JS sebelum ES6 menggunakan teknik _prototype_. Dengan begitu maka method dari masing-masing tidak berkali-kali dibuat oleh masing-masing _instance_ nantinya sehingga cukup diwariskan (_inheritance_) ke setiap _instance_ melalui _prototype_ alias `__proto__`. Setelah update ES6 penulisan _class_ berubah menjadi seperti bahasa yang lainnya.
 
-### Constructor, Instance, Property Accessor
+### _Constructor_, _Instance_, _Property Accessor_
 
 ```js
 class Book{
@@ -112,7 +112,7 @@ const myBook = new Book('Si Kancil dan Si Buaya', 'Purbaloka', '22 Desember 2002
 const myFianceBook = new Book('Ladin 1977', 'Batu Kampuang', '29 Februari 2039');
 ```
 
-### Inheritance
+### _Inheritance_
 
 ```JS
 class ParentClass{
@@ -129,7 +129,75 @@ class ChildClass extends ParentClass {
 }
 ```
 
-## Static Method
+### _Static Method_
 
 _Static Method_ merupakan _method_ yang dapat dipanggil tanpa harus melakukan instansiasi terlebih dahulu.
 
+## _Asynchronous_
+
+### `setTimeOut`
+
+Fungsi untuk memberikan waktu jeda sebelum dieksekusi oleh program sehingga berjalan secara _asynchronous_.
+
+### _Callback Function_
+
+Callback function merupakan fungsi yang menjadi argumen dan digunakan pada fungsi lainnya.
+
+### _Promise_
+
+_Promise_ dapat menghindari terjdinya _callback hell_ alias penggunaan _callback_ yang beruntun. Sebuah object _promise_ memerlukan fungsi _resolver_ atau _executor_ ketika instansiasi. Di dalamnya terdapat 2 fungsi yaitu `resolve()` untuk mengirimkan data ketika _promise_ berhasil alias statusnya berubah menjadi _fulfilled_ sedangkan `reject()` untuk memberitahu ketika _promise_ tidak dapat dijalankan alias statusnya berubah menjadi _rejected_. Untuk menangani status tersebut digunakan _method_ `.then()` setelah _promise_ dipanggil. Argumen yang diberikan pada _method_ tersebut berupa fungsi _handler_ `onFulfilled` ataupun `onRejected`. Berikut contohnya.
+
+```js
+const execution = (resolve, reject) => {
+    if(true) resolve('Anda telah berhasil');
+    else reject('Anda telah gagal');
+}
+
+const fulfilledHandler = mess => console.log(mess);
+const rejectedHandler = mess => {
+    console.log(mess);
+    console.log('Coba lagi...');
+}
+
+const myPromise = new Promise(execution);
+myPromise.then(fulfilledHandler, rejectedHandler);
+```
+
+> Salah satu cara menulis kode yang baik adalah mengikuti prinsip yang disebut separation of concerns yang artinya pemisahan masalah.
+
+Maka dari itu terdapat _method_ `.catch()` yang dapat digunakan untuk menerima argumen dari _handler_ `onRejected`. Sehingga menjadi seperti berikut.
+
+```js
+myPromise.then(fulfilledHandler).catch(rejectedHandler);
+```
+
+_Promise_ juga dapat dibuat secara berantai dengan cara mengembalikan hasil fungsi _callback_ berupa _promise_ sehingga dapat dilanjutkan dengan fungsi lain yang menangani _promise_ tersebut. Selain itu agar dapat menjalankan beberapa promise secara bersamaan dapat menggunakan _method_ `.all()`. Berikut contohnya.
+
+```js
+const promise1 = () => {
+    return new Promise(resolve => {
+        setTimeOut(()=>{
+            resolve('promise1 berhasil')
+        }, 4000);
+    })
+};
+
+const promise2 = () => {
+    return new Promise(resolve => {
+        setTimeOut(()=>{
+            resolve('promise2 berhasil')
+        }, 3000);
+    })
+};
+
+const myPromises = [promise1(), promise2()];
+
+Promise.all(myPromises).then( mess => console.log(mess));
+/* Hasilnya:
+['promise1 berhasil', 'promise2 berhasil'] (Urutan hasil yang keluar sesuai posisi dan dilakukan sesuai timeout terlama)
+*/
+```
+
+### `async` & `await`
+
+Kedua keyword tersebut digunakan agar promise dapat dijalankan pada sebuah fungsi agar fungsi tersebut berjalan secara async. Untuk menangani `onRejected` dapat menggunakan `try-catch`.
