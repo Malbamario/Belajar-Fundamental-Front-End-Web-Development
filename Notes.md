@@ -27,6 +27,9 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
     - [Module](#module)
       - [Ekspor \& Impor](#ekspor--impor)
   - [_Web Component_](#web-component)
+    - [_Custom Element_](#custom-element)
+      - [_Lifecycle Callbacks_](#lifecycle-callbacks)
+      - [Atribut dan _Method_](#atribut-dan-method)
 
 ## ECMAScript 6
 
@@ -239,3 +242,85 @@ Kedua keyword tersebut digunakan agar promise dapat dijalankan pada sebuah fungs
 Terdapat beberapa versi dalam melakukannya seperti pada Node.js untuk _export_ dapat menggunakan keyword `module.exports` yang berupa objek untuk menampung berbagai variabel dan untuk _import_ dapat menggunakan fungsi `require('./file.js')` yang kemudian dapat ditampung ke dalam sebuah variabel. Karena yang dikirim berupa objek maka dapat memanfaatkan _object literals_ dan _destructing object_. Sedangkan pada ES6 atribut `type` dari _tag script_ tersebut perlu diisi dengan `module`. Kemudian untuk _export_ satu variabel dapat menggunakan _keyword_ `export default ...` dan untuk _import_ satu variabel dapat menggunakan _keyword_ `import varName from './file.js'`. Sedangkan jika lebih bari satu variabel dapat menggunakan  _object literals_ dan _destructing object_ namun jika ingin mengubah nama variabel ketika di-_import_ dapat menggunakan _keyword_ `as`.
 
 ## _Web Component_
+
+Kelebihan _web component_ adalah sesuai standard sehingga memiliki compability yang tinggi dan juga _simple_ karena tidak memerlukan framework alias murni. Terdapat 2 API yang digunakan yaitu _Custom Element_ dan _Shadow DOM_.
+
+### _Custom Element_
+
+Dengan _custom element_ kita dapat membuat _element_ kita sendiri, sehingga kita dapat membuat DOM versi kita masing-masing dan lebih mudah untuk dibaca. Untuk membuatnya cukup melakukan _inheritance_ dari _class_ `HTMLElement` kemudian mendaftarkan _class_ tersebut dengan namanya menggunakan _method_ `define()` dari variabel global `customElements`.
+
+> Penamaan _element_ disarankan menggunakan dua kata yang disambung dengan tanda strip (-) agar dapat dibedakan dengan elemen asli dari HTML
+
+#### _Lifecycle Callbacks_
+
+Berikut merupakan _Lifecycle Callbacks_ yang terdapat pada HTMLElement dan bersifat opsional.
+
+![Ilustrasi Lifecycle Callbacks](./Notes-Files/Lifecycle%20Callbacks.png)
+
+- `connectedCallback()`: terpanggil ketika berhasil ditambahkan ke dokumen sehingga cocok dalam konfigurasi awal seperti pengambilan data pengaturan atribut dan lain-lain.
+- `disconnectedCallback()`: terpanggil ketika elemen dikeluarkan dari DOM (`remove()`) sehingga cocok untuk membershikan data yang masih disimpan (event, objek, state, dll).
+- `attributeChangedCallback()`: terpanggil ketika terdapat atribut yang sedang di-observe dengan fungsi `get obervedAttrbute` berubah sehingga cocok untuk melakukan _reload_.
+- `adoptedCallback()`: terpanggil ketika elemen dipindahkan ke dokumen baru (biasanya saat menggunakan tag `<iframe>`).
+
+Selain itu terdapat fungsi `constructor` untuk konfigurasi awal ketika elemen dibuat seperti _event listener_ dan _shadow DOM_ dan ketika menggunakannya perlu _method_ `super()`. Untuk menginstansiasi _custom element_ dapat dilakukan baik lewat dokumen HTML ataupun menggunakan Js dengan _method_ `document.createElement()`.
+
+#### Atribut dan _Method_
+
+Sebagai sebuah elemen maka _custom element_ dapat memiliki atribut, properti, dan _method_ bawaan dari DOM yang dpat dimanfaatkan untuk mengisi data yang terdapat di dalamnya. Berikut merupakan penggunaan _lifecycle callback_ yang digunakan untuk memanipulasi atribut _custom element_
+
+```js
+class bookCard extends HTMLElement {
+    connectedCallback(){
+        this.src = this.getAttribute('src') || null;
+        this.alt = this.getAttribute('alt') || null;
+        this.title = this.getAttribute('title') || null;
+        this.author = this.getAttribute('author') || null;
+        this.link = this.getAttribute('link') || null;
+        this.render();
+    }
+
+    render(){
+        this.innerHTML = `
+            <img src="${this.src}">
+            <div>
+                <h3>${this.title}</h3>
+                <p>${this.author}</p>
+                <a href="${this.link}">
+            </div>
+        `;
+    }
+    
+    attributeChangedCallback(name, oldValue, newValue){
+        this[name] = newValue;
+        this.render();
+    }
+
+    static get observedAttribute(){
+        return ['src', 'alt', 'title', 'author', 'link']
+    }
+}
+
+customElements.defines('book-card', bookCard);
+```
+
+namun agar elemen tersebut dapat terlihat lebih sederhana dalam dokumen HTML, maka disarankan untuk memanfaatkan objek yang dapat menampung data-data tersebut. Sehingga dari _class_ pada potongan kode di atas akan di rubah menjadi seperti berikut.
+
+```js
+class bookCard extends HTMLElement {
+    set book(book){
+        this._book = book;
+        this.render();
+    }
+
+    render(){
+        this.innerHTML = `
+            <img src="${this._book.src}">
+            <div>
+                <h3>${this._book.title}</h3>
+                <p>${this._book.author}</p>
+                <a href="${this._book.link}">
+            </div>
+        `;
+    }
+}
+```

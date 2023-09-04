@@ -1,45 +1,38 @@
 import DataSource from './../data/data-source.js';
+import defineCustomElements from './custom-elements.js';
 
 const main = async () => {
-  const searchElement = document.querySelector('#searchElement');
-  const buttonSearchElement = document.querySelector('#searchButtonElement');
-  const clubListElement = document.querySelector('#clubList');
+  defineCustomElements();
 
+  const appBar = document.createElement('app-bar');
+  const searchContainer = document.createElement('search-bar');
+  const clubListElement = document.createElement('club-list');
+  
+  document.querySelector('header').appendChild(appBar);
+  document.querySelector('main').appendChild(searchContainer);
+  document.querySelector('main').appendChild(clubListElement);
+  const searchElement = document.querySelector('#searchElement');  
+  const buttonSearchElement = document.querySelector('#searchButtonElement');  
+  
   const onButtonSearchClicked = async () => {
     try{
-      renderResult(await DataSource.searchClub(searchElement.value));
+      clubListElement.clubs = await DataSource.searchClub(searchElement.value);
     } catch(rejectedMess){
       fallbackResult(rejectedMess);
     }
   };
-
-  const renderResult = results => {
-    clubListElement.innerHTML = '';
-    results.forEach(club => {
-      let {name, fanArt, description} = club;
-
-      const clubElement = document.createElement('div');
-      clubElement.setAttribute('class', 'club');
-
-      clubElement.innerHTML = `<img class="fan-art-club" src="${fanArt}" alt="Fan Art">
-      <div class="club-info">
-        <h2>${name}</h2>
-        <p>${description}</p>
-      </div>`;
-      clubListElement.appendChild(clubElement);
-    });
-  };
-
+  
   const fallbackResult = message => {
     clubListElement.innerHTML = `<h2 class="placeholder">${message}</h2>`;
   };
-
+  
   // Tambahan dari saya agar ketika pertama kali di-load semua club muncul terlebih dahulu
   try{
-    renderResult(await DataSource.searchClub(searchElement.value));
+    clubListElement.clubs = await DataSource.searchClub(searchElement.value);
   } catch(rejectedMess){
     fallbackResult(rejectedMess);
   }
+
   buttonSearchElement.addEventListener('click', onButtonSearchClicked);
 };
 
