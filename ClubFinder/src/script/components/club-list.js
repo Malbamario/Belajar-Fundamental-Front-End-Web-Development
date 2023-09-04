@@ -1,6 +1,3 @@
-import ClubItem from "./club-item.js";
-customElements.define('club-item', ClubItem);
-
 class ClubList extends HTMLElement{
     set clubs(clubs){
         this._clubs = clubs;
@@ -8,12 +5,18 @@ class ClubList extends HTMLElement{
     }
 
     render(){
+        this.innerHTML = ``;
         this._clubs.forEach(club => {
             const clubElement = document.createElement('club-item');
             clubElement.club = club;
             this.appendChild(clubElement);
           });
     }
+
+    renderError = message => {
+        this.innerHTML = ``;
+        this.innerHTML = `<h2 class="placeholder">${message}</h2>`;
+      };
 }
 
-export default ClubList;
+customElements.define('club-list', ClubList);

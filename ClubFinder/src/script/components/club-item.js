@@ -13,5 +13,4 @@ class ClubItem extends HTMLElement{
         </div>`;
     }
 }
-
-export default ClubItem;
+customElements.define('club-item', ClubItem);
