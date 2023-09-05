@@ -371,4 +371,4 @@ Dalam menggunakan NPM terdapat perintah-perintah yang wajib diketahui seperti be
 - `npm version` : untuk mengetahui versi npm yang digunakan.
 - `npm uninstall <package-name>` : untuk menghapus sebuah _package_.
 
-Setiap perintah terdapat berbagai _option_ yang digunakan untuk mengatur bagaimana perintah tersebut dijalankan salah satunya `-h` yang terdapat di semua perintah untuk memberikan informasi terkait perintah tersebut.
+Setiap perintah terdapat berbagai _option_ yang digunakan untuk mengatur bagaimana perintah tersebut dijalankan salah satunya `-h` yang terdapat di semua perintah untuk memberikan informasi terkait perintah tersebut. Pada perintah `install` terdapat beberapa _option_ seperti `--save-dev` dan `-g`. `--save-dev` digunakan agar _depedencies_ tersebut di-instal dan dijalankan dalam tingkat _development_ sedangkan `-g` digunakan agar _package_ di-instal pada cakupan global yang artinya tidak terinstal pada porjek tersebut melainkan pada NPM tersebut sehingga dapat digunakan oleh berbagai projek dengan NPM tersebut.
