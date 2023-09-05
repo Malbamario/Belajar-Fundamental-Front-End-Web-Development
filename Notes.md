@@ -30,6 +30,7 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
     - [_Custom Element_](#custom-element)
       - [_Lifecycle Callbacks_](#lifecycle-callbacks)
       - [Atribut dan _Method_](#atribut-dan-method)
+    - [_Shadow_ DOM](#shadow-dom)
 
 ## ECMAScript 6
 
@@ -323,4 +324,24 @@ class bookCard extends HTMLElement {
         `;
     }
 }
+```
+
+### _Shadow_ DOM
+
+Konsep yang diterapkan oleh _shadow_ DOM yaitu _Encapsulation_ agar elemen yang telah dibuat tidak dapat diganggu oleh user dari luar. _Shadow_ DOM juga dapat disebut DOM dalam DOM. Berikut merupakan termminologi dari _shadow_ DOM.
+
+![Shadow DOM Terminology](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM/shadowdom.svg)
+
+- Shadow host: Merupakan komponen/node yang terdapat pada regular DOM di mana shadow DOM terlampir pada komponen/node ini.
+- Shadow tree: DOM Tree di dalam Shadow DOM.
+- Shadow boundary: Batas dari shadow DOM dengan regular DOM.
+- Shadow root: Root node dari shadow tree.
+
+_Shadow_ DOM memiliki 2 mode yaitu `open` & `closed`. Berikut contoh implementasi _shadow_ DOM.
+
+```js
+const divEl = document.createElement('div');
+const myShadowRoot = divEl.attachShadow({ mode: "closed" });
+divEl.shadowRoot // null
+myShadowRoot // 
 ```

@@ -10,10 +10,11 @@ const main = async () => {
   document.querySelector('main').appendChild(clubListElement);
   
   const onButtonSearchClicked = async () => {
+    console.log('tes');
     try{
       clubListElement.clubs = await DataSource.searchClub(searchElement.value);
     } catch(rejectedMess){
-      clubListElement.fallbackResult(rejectedMess);
+      clubListElement.renderError(rejectedMess);
     }
   };
   
@@ -21,7 +22,7 @@ const main = async () => {
   try{
     clubListElement.clubs = await DataSource.searchClub(searchElement.value);
   } catch(rejectedMess){
-    clubListElement.fallbackResult(rejectedMess);
+    clubListElement.renderError(rejectedMess);
   }
   
   searchElement.clickEvent = onButtonSearchClicked;
