@@ -31,6 +31,8 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
       - [_Lifecycle Callbacks_](#lifecycle-callbacks)
       - [Atribut dan _Method_](#atribut-dan-method)
     - [_Shadow_ DOM](#shadow-dom)
+  - [Package Manager](#package-manager)
+    - [NPM](#npm)
 
 ## ECMAScript 6
 
@@ -343,5 +345,30 @@ _Shadow_ DOM memiliki 2 mode yaitu `open` & `closed`. Berikut contoh implementas
 const divEl = document.createElement('div');
 const myShadowRoot = divEl.attachShadow({ mode: "closed" });
 divEl.shadowRoot // null
-myShadowRoot // 
+myShadowRoot //  # shadow-root (closed)
 ```
+
+## Package Manager
+
+Package manager adalah sebuah tools yang digunakan untuk mengelola _module_/_package_ termasuk _module_ yang berupa _dependencies_ dari berbagai _library_. Pada Js terdapat 2 buah package manager yaitu Yarn dan NPM.
+
+### NPM
+
+NPM merupakan package manager dari node.js. untuk menginstal NPM dapat dilakukan dengan cara langsung dengan instalan yang di-_download_ melalui website-nya atau dengan bantuan NVM yang dapat digunakan untuk menginstal beberapa versi Node.js. Berikut perintah yang dilakukan untuk mempersiapkan NPM.
+
+```shell
+nvm install < node version >
+nvm use < node version >
+```
+
+> Pastikan ketika menginstal NVM pada Windows lokasi folder tidak mengandung spasi.
+
+Dalam menggunakan NPM terdapat perintah-perintah yang wajib diketahui seperti berikut.
+
+- `npm install <package-name>` : untuk menginstal sebuah _package_.
+- `npm init` : untuk membuat _file_ `package.json` pada proyek tersebut.
+- `npm run <commands>` : untuk menjalankan perintah pada objek script pada `package.json`.
+- `npm version` : untuk mengetahui versi npm yang digunakan.
+- `npm uninstall <package-name>` : untuk menghapus sebuah _package_.
+
+Setiap perintah terdapat berbagai _option_ yang digunakan untuk mengatur bagaimana perintah tersebut dijalankan salah satunya `-h` yang terdapat di semua perintah untuk memberikan informasi terkait perintah tersebut.
