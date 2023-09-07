@@ -1,4 +1,6 @@
-// const moment = require('moment');
+import './styles/style.css';
+import $ from 'jquery';
+import moment from 'moment';
 
 const displayTime = () => {
     moment.locale('id');

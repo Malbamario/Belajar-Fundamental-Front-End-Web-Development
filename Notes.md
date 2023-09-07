@@ -33,6 +33,14 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
     - [_Shadow_ DOM](#shadow-dom)
   - [Package Manager](#package-manager)
     - [NPM](#npm)
+  - [Bundle dengan Module Bundler (Webpack)](#bundle-dengan-module-bundler-webpack)
+    - [Core Concepts](#core-concepts)
+      - [_Entry_](#entry)
+      - [_Output_](#output)
+      - [_Loaders_](#loaders)
+      - [_Plugin_](#plugin)
+      - [Mode](#mode)
+    - [Implementasi webpack](#implementasi-webpack)
 
 ## ECMAScript 6
 
@@ -372,3 +380,165 @@ Dalam menggunakan NPM terdapat perintah-perintah yang wajib diketahui seperti be
 - `npm uninstall <package-name>` : untuk menghapus sebuah _package_.
 
 Setiap perintah terdapat berbagai _option_ yang digunakan untuk mengatur bagaimana perintah tersebut dijalankan salah satunya `-h` yang terdapat di semua perintah untuk memberikan informasi terkait perintah tersebut. Pada perintah `install` terdapat beberapa _option_ seperti `--save-dev` dan `-g`. `--save-dev` digunakan agar _depedencies_ tersebut di-instal dan dijalankan dalam tingkat _development_ sedangkan `-g` digunakan agar _package_ di-instal pada cakupan global yang artinya tidak terinstal pada porjek tersebut melainkan pada NPM tersebut sehingga dapat digunakan oleh berbagai projek dengan NPM tersebut.
+
+## Bundle dengan Module Bundler (Webpack)
+
+Webpack merupkan sebuah _Module Bundler_ yang digunakan untuk membungkus beberapa modul menjadi satu atau lebih berkas di _background_. Dengan Webpack semua module baikdari NPM maupun buatan sendiri digabung menjadi _static assets_ yang siap untuk tahap produksi.
+
+### Core Concepts
+
+![Core Concepts](./Notes-Files/Core%20Concepts.png)
+
+Terdapat 5 konsep utama dalam webpack yaitu _entry_, output, loaders, plugin dan mode.
+
+#### _Entry_
+
+_Entry_ merupakan titik awal analisa berkas untuk membentuk _depedency graph_. Biasanya entry point ditempatkan pada berkas `./src/index.js` atau `webpack.config.js`. Berikut contoh penulisannya.
+
+```js
+module.exports = {
+    entry: `./file.js`
+}
+// atau jika lebih dari 1
+module.exports = {
+    entry: {
+        main: `./file.js`
+    }
+}
+```
+
+#### _Output_
+
+Output merupakan berkas _bundle_ berdasarkan _entry point_. Dengan _output_ maka _static asset_ yang sudah dibuat dapat disimpan dan diberi nama. Biasanya berkas _static asset_ disimpan di dalam folder `dist`. Jika terdpat lebih dari 1 _entry_ maka diperlukan _substitution_ agar namanya unik. Berikut contoh penerapannya.
+
+```js
+module.exports = {
+    entry: {
+        main: `./file.js`,
+        devmain: `./file.js`
+    },
+    output: {
+        filename: `[name].js`,
+        path: __dirname + `/dist`
+    }
+}
+```
+
+#### _Loaders_
+
+_Loader_ merupakan _transformation tools_ pada webpack untuk memproses seluruh berkas kecuali Js dan JSON untuk dapat digunakan pada tahap produksi. Loader akan disimpan ke dalam properti `module.rules`. __Sebuah _loader_ tidak datang bersamaan dengan webpack sehingga perlu menginstallnya melalui NPM__. Di dalam properti tersebut terdapat beberapa elemen berupa objek dengan properti `test` berisi format file dan `use` berisi loader yang digunakan. Setiap format file dapat menggunakan lebih dari 1 loader dan loader yang dimuat berurutan dari posisi yang terakhir. Di setiap loader juga terdapat properti `options`. Berikut contoh penerapannya.
+
+```js
+module.exports = {
+    entry: {
+        main: `./file.js`,
+        devmain: `./file.js`
+    },
+    output: {
+        filename: `[name].js`,
+        path: __dirname + `/dist`
+    }
+    module:{
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader",
+                        options: {
+                            // memasukkan style dengan tag <style> di bawah dari element <body> 
+                            insert: "body"}
+                    },
+                    {loader: "css-loader"}
+                ]
+            }
+        ]
+    }
+}
+```
+
+#### _Plugin_
+
+Plugin digunakan untuk optimasi bundle, manajemen aset, dan lain-lain. _Plugin_ yang ditambahkan berupa sebuah objek dari _class_ di setiap _plugin_ yang telah kita tambahkan. _Plugin_ tersebut dapat berasal dari webpack alias _built-in_ atau dapat ditambahkan dari luar menggunakan NPM. Berikut contoh penerapannya.
+
+```js
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: {
+        main: `./file.js`,
+        devmain: `./file.js`
+    },
+    output: {
+        filename: `[name].js`,
+        path: __dirname + `/dist`
+    }
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader",
+                        options: {
+                            // memasukkan style dengan tag <style> di bawah dari element <body> 
+                            insert: "body"}
+                    },
+                    {loader: "css-loader"}
+                ]
+            }
+        ]
+    }
+    plugins: [
+        new webpack.ProgressPlugin(),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            filename: 'index.html'
+        })
+    ]
+}
+```
+
+#### Mode
+
+Mode digunakan untuk acuan optimasi apa aja saya yang harus diimplementasikan. Terdapat 3 nilai yang digunakan yaitu _development_, _production_ dan _none_ namun secara _default_ bernilai _production_. Nilai tersebut tidak hanya dapat diubah melalui properti `mode` namun juga dapat dengan perintah CLI `webpack --mode development`. Setiap `mode` juga memiliki propertinya masing-masing. Agar webpack memiliki perilaku berdasarkan mode maka `module.exports` dapat diubah menjadi fungsi. Berikut contoh penerapannya.
+
+```js
+
+const config = {
+    entry: [
+
+    ]
+    //...
+}
+
+module.exports = (env, args) => {
+    if (argv.mode === 'development') {
+        config.devtool = 'source-map';
+    }
+    
+    if (argv.mode === 'production') {
+        //...
+    }
+    
+    return config;
+};
+```
+
+Kemudian untuk menentukan berkas berkas _webpack configuration_ yang berbeda dapat menambahkan flag `--config` pada properti `script` di `package.json` seperti berikut.
+
+```js
+"scripts": {
+  "build:prod": "webpack --config webpack.prod.js",
+  "build:dev": "webpack --config webpack.dev.js"
+}
+```
+
+### Implementasi webpack
+
+Untuk mengistal wabpack dibutuhkan 2 package yaitu webpack dan wabpack-cli seperti berikut.
+
+```shell
+npm install webpack webpack-cli --save-dev
+```
