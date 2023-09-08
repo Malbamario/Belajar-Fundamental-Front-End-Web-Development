@@ -537,8 +537,16 @@ Kemudian untuk menentukan berkas berkas _webpack configuration_ yang berbeda dap
 
 ### Implementasi webpack
 
-Untuk mengistal wabpack dibutuhkan 2 package yaitu webpack dan wabpack-cli seperti berikut.
+Untuk menginstal wabpack dibutuhkan 2 package yaitu webpack dan wabpack-cli seperti berikut.
 
 ```shell
 npm install webpack webpack-cli --save-dev
 ```
+
+Untuk menambahkan file yang akan di-bundle dapat di-import ke dalam entry-point. Sehingga jika sebuah package di-import maka akan digabung juga menjadi berkas bundle sehingga tidak disarankan karena akan membuat ukuran berkas bundle membengkak. Terdapat beberapa loader yang dapat mengubah format ES6 menjadi versi yang lebih rendah sehingga dapat dijalankan di browser yang lebih beragam Salah satunya babel. Untuk menginstalnya dapat menggunakan perintah berikut.
+
+```shell
+npm install @babel/core @babel/preset-env babel-loader --save-dev
+```
+
+Selain itu terdapat `dev-server` dari webpack yang digunakan agar dapat melakukan _live-reloading_ sehingga kita dapat melihat perubahan-perubahan minor secara langsung tanpa melakukan _build_. Kemudian terdapat `webpack-merge` yang dapat menggabungkan konfigurasi secara umum dengan konfigurasi pada masing-masing _environment_/mode. Lalu terdapat _plugin_ `HtmlWebpackPlugin` untuk membentuk _file_ HTML dari _template_ yang sudah ada sehingga aplikasi web yang utuh dapat menjadi satu di dalam folder _output_-nya alias folder `dist`.
