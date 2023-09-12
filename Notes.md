@@ -41,6 +41,10 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
       - [_Plugin_](#plugin)
       - [Mode](#mode)
     - [Implementasi webpack](#implementasi-webpack)
+  - [Asynchronous JavaScript Request](#asynchronous-javascript-request)
+    - [Web API](#web-api)
+    - [CORS](#cors)
+    - [JavaScript Object Notation (JSON)](#javascript-object-notation-json)
 
 ## ECMAScript 6
 
@@ -550,3 +554,39 @@ npm install @babel/core @babel/preset-env babel-loader --save-dev
 ```
 
 Selain itu terdapat `dev-server` dari webpack yang digunakan agar dapat melakukan _live-reloading_ sehingga kita dapat melihat perubahan-perubahan minor secara langsung tanpa melakukan _build_. Kemudian terdapat `webpack-merge` yang dapat menggabungkan konfigurasi secara umum dengan konfigurasi pada masing-masing _environment_/mode. Lalu terdapat _plugin_ `HtmlWebpackPlugin` untuk membentuk _file_ HTML dari _template_ yang sudah ada sehingga aplikasi web yang utuh dapat menjadi satu di dalam folder _output_-nya alias folder `dist`.
+
+## Asynchronous JavaScript Request
+
+XMLHttpRequest (XHR) awalnya digunakan agar _browser_ dapat melakukan HTTP _request_ dan memperbarui data dari server tanpa harus memuat ulang seluruh halaman web karena XHR berjalan secara asynchronous. Karena XML menjadi format yang sering digunakan sebelum JSON sehingga sering disebut sebagai AJAX (Asynchronous JavaScript and XML). Kemudian hadir `Fetch` yang dapat mengembalikan `Promise.
+
+### Web API
+
+Web API (Application Programming Interface) merupakan _interface_ yang disediakan oleh penyedia data agar data yang ia miliki dapat dimanfaatkan dengan mudah oleh banyak aplikasi.
+
+![REST API](./Notes-Files/REST%20API.png)
+
+REST API (Representational API) adalah bentuk sederhana dari sebuah API yang sering digunakan. REST API hampir seluruhnya berkomunikasi melalui HTTP menuju endpoint yang telah ditentukan. Terdapat tipe/method yang umumnya digunakan dalam menggunakan sebuah REST API, berikut keempat method tersebut.
+
+- GET: digunakan untuk mendapatkan data
+- POST: digunakan untuk mengirimkan data
+- PUT: digunakan untuk mengubah data
+- DELETE: dogunakan untuk menghapus data
+
+Sebagai REST API _client_ yang mengirimkan HTTP _Request_, maka REST API akan mmemberikan sebuah HTTP _Response_. Di dalamnya, selain informasi mengenai data, terdapat juga _status code_ seperti berikut.
+
+- 200 (OK) : Request berhasil dipenuhi oleh server (Web API).
+- 400 (Bad Request) : Server tidak mengerti request yang dikirimkan client.
+- 401 (Unauthorized) : Request membutuhkan authorization.
+- 403 (Forbidden) : Server mengerti request dari client namun menolak untuk memprosesnya karena request tersebut tidak boleh dilakukan.
+- 404 (Not Found) : Resource yang client minta, tidak ditemukan.
+- 500 (Server Error) : Server mengalami kendala untuk memproses request.
+
+Terdapat beberapa API yang dapat digunakan secara _public_ maupun _private_ yang membuat kita terhalang dengan _same-origin policy_.
+
+### CORS
+
+CORS (Cross-Origin Resource Sharing) merupakan teknologi yan digunakan agar data dari domain yang berbeda dapat digunakan secara umum untuk menghindari _same-origin policy_.
+
+### JavaScript Object Notation (JSON)
+
+Perbedaan Js Object dengan JSON adalah _key_ pada JSON menggunakan tanda petik dua (" "). Penggunaan JSON sama seperti objek pada umumnya, karena terdapat _key_ dengan _white space_ dapat dipanggil dengan _indexing_. JSON selalu dikirim dalam bentuk _string_. Lalu pada Js agar dapat mengolahnya dalam sebagai objek maka diperlukan objek global yaitu JSON dengan _method_ `parse` untuk mengubah _string_ JSON menjadi objek Js dan `stringify` merubah objek Js mejadi JSON _string_.
