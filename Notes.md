@@ -45,6 +45,8 @@ Ini merupakan sebuah catatan yang berisi ringkasan hal-hal penting dalam pembela
     - [Web API](#web-api)
     - [CORS](#cors)
     - [JavaScript Object Notation (JSON)](#javascript-object-notation-json)
+    - [AJAX menggunakan XHR](#ajax-menggunakan-xhr)
+    - [AJAX menggunakan Fetch](#ajax-menggunakan-fetch)
 
 ## ECMAScript 6
 
@@ -590,3 +592,90 @@ CORS (Cross-Origin Resource Sharing) merupakan teknologi yan digunakan agar data
 ### JavaScript Object Notation (JSON)
 
 Perbedaan Js Object dengan JSON adalah _key_ pada JSON menggunakan tanda petik dua (" "). Penggunaan JSON sama seperti objek pada umumnya, karena terdapat _key_ dengan _white space_ dapat dipanggil dengan _indexing_. JSON selalu dikirim dalam bentuk _string_. Lalu pada Js agar dapat mengolahnya dalam sebagai objek maka diperlukan objek global yaitu JSON dengan _method_ `parse` untuk mengubah _string_ JSON menjadi objek Js dan `stringify` merubah objek Js mejadi JSON _string_.
+
+### AJAX menggunakan XHR
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.onload = function () {
+    console.log(this.responseText);
+}
+
+xhr.onerror = function () {
+    console.log(`There's something wrong!`);
+}
+
+xhr.open('GET', 'http://api-to-call.com/endpoint');
+xhr.send();
+```
+
+Ketika ingin melakukan method seperti POST & PUT, maka kita perlu menambahkan properti pada _header_ dan isi dari _body_ pada HTTP _Request_ tersebut. Berikut contohnya.
+
+```Js
+xhr.open('POST', 'http://api-to-call.com/endpoint');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('X-Auth-Token', '12345');
+
+const book = {
+    id: "026918",
+    title: "My Fat-ish",
+    author: "Tanaka Sora"
+};
+
+xhr.send(JSON.stringify(book));
+```
+
+Pada kode di atas terdapat properti _header_ yaitu `Content-Type` dengan _value_ `application/json` agar data yang dikirimkan diidentifikasi sebagai JSON, namun tidak hanya JSON yang dapat dikirim, bisa saja _Blob_, _BufferSource_, _FormData_, _URLSeachParam_, _ReadableStream_ atau _USVString object_.
+
+### AJAX menggunakan Fetch
+
+```js
+fetch('http://api-to-call.com/endpoint');
+```
+
+Karena hasil yang diberikan berupa promise maka perlu fungsi untuk mendapatkan isi alias _body_ dari HTTP _Response_ yang didapatkan seperti berikut.
+
+```js
+fetch('http://api-to-call.com/endpoint')
+    .then(response => {
+        return reponse.json();
+    })
+    .then(responseJson => {
+        console.log(responseJson);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+// atau
+
+async function getData(){
+    try{
+        const response = await fetch('http://api-to-call.com/endpoint');
+        const responseJson = await response.json();
+        console.log(responseJson);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+getData();
+```
+
+Pada fungsi `fetch()` terdapat parameter opsional untuk menyertakan berbagai properti seperti _method_, _header_ dan juga _body_ dari HTTP _Request_ yang akan dikirimkan. Berikut contoh penerapannya.
+
+```js
+fetch('http://api-to-call.com/endpoint',{
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json', 
+        'X-Auth-Token': '12345'
+    },
+    body: JSON.stringify({
+        id: '291909',
+        title: `Malba's Journey`,
+        author: 'Edo Rio'
+    })
+});
+```
