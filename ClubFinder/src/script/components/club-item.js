@@ -10,7 +10,7 @@ class ClubItem extends HTMLElement{
     }
 
     render(){
-        let {name, fanArt, description} = this._club;
+        let {strTeam, strTeamBadge, strDescriptionEN} = this._club;
         this._shadowDOM.innerHTML = `
         <style>
         :host {
@@ -45,10 +45,10 @@ class ClubItem extends HTMLElement{
             -webkit-line-clamp: 10;
           }
         </style>
-        <img class="fan-art-club" src="${fanArt}" alt="Fan Art">
+        <img class="fan-art-club" src="${strTeamBadge}" alt="Fan Art">
         <div class="club-info">
-            <h2>${name}</h2>
-            <p>${description}</p>
+            <h2>${strTeam}</h2>
+            <p>${strDescriptionEN}</p>
         </div>`;
     }
 }
