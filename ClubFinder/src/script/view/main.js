@@ -10,7 +10,6 @@ const main = async () => {
   document.querySelector('main').appendChild(clubListElement);
   
   const onButtonSearchClicked = async () => {
-    console.log('tes');
     try{
       clubListElement.clubs = await DataSource.searchClub(searchElement.value);
     } catch(rejectedMess){
